@@ -96,6 +96,148 @@ export default createRoute()
       log.atError().withCause(e).log(`Failed to create ${metricsSchema}.task_log table.`);
       errors.push(new Error(`Failed to create ${metricsSchema}.task_log table.`));
     }
+    // --- New Event Tables ---
+    const createPageViewsTableQuery = `create table IF NOT EXISTS ${metricsSchema}.page_views ${onCluster}
+         (
+           event_time      DateTime,
+           session_id      String,
+           user_id         Nullable(String),
+           page_url        String,
+           referrer        Nullable(String),
+           user_agent      Nullable(String),
+           device_type     Nullable(String),
+           country         Nullable(String),
+           city            Nullable(String),
+           additional_data Nullable(String)
+         )
+         engine = ${
+           metricsCluster
+             ? "ReplicatedMergeTree('/clickhouse/tables/{shard}/" + metricsSchema + "/page_views', '{replica}')"
+             : "MergeTree()"
+         }
+        PARTITION BY toYYYYMM(event_time)
+        ORDER BY (event_time, session_id)`;
+    try {
+      await clickhouse.command({ query: createPageViewsTableQuery });
+      log.atInfo().log(`Table ${metricsSchema}.page_views created or already exists`);
+    } catch (e: any) {
+      log.atError().withCause(e).log(`Failed to create ${metricsSchema}.page_views table.`);
+      errors.push(new Error(`Failed to create ${metricsSchema}.page_views table.`));
+    }
+
+    const createProductViewsTableQuery = `create table IF NOT EXISTS ${metricsSchema}.product_views ${onCluster}
+         (
+           event_time      DateTime,
+           session_id      String,
+           user_id         Nullable(String),
+           product_id      String,
+           product_name    Nullable(String),
+           price           Nullable(Float64),
+           category        Nullable(String),
+           page_url        String,
+           referrer        Nullable(String),
+           additional_data Nullable(String)
+         )
+         engine = ${
+           metricsCluster
+             ? "ReplicatedMergeTree('/clickhouse/tables/{shard}/" + metricsSchema + "/product_views', '{replica}')"
+             : "MergeTree()"
+         }
+        PARTITION BY toYYYYMM(event_time)
+        ORDER BY (event_time, product_id, session_id)`;
+    try {
+      await clickhouse.command({ query: createProductViewsTableQuery });
+      log.atInfo().log(`Table ${metricsSchema}.product_views created or already exists`);
+    } catch (e: any) {
+      log.atError().withCause(e).log(`Failed to create ${metricsSchema}.product_views table.`);
+      errors.push(new Error(`Failed to create ${metricsSchema}.product_views table.`));
+    }
+
+    const createAddToCartTableQuery = `create table IF NOT EXISTS ${metricsSchema}.add_to_cart ${onCluster}
+         (
+           event_time      DateTime,
+           session_id      String,
+           user_id         Nullable(String),
+           product_id      String,
+           product_name    Nullable(String),
+           price           Nullable(Float64),
+           quantity        UInt32,
+           page_url        String,
+           referrer        Nullable(String),
+           additional_data Nullable(String)
+         )
+         engine = ${
+           metricsCluster
+             ? "ReplicatedMergeTree('/clickhouse/tables/{shard}/" + metricsSchema + "/add_to_cart', '{replica}')"
+             : "MergeTree()"
+         }
+        PARTITION BY toYYYYMM(event_time)
+        ORDER BY (event_time, product_id, session_id)`;
+    try {
+      await clickhouse.command({ query: createAddToCartTableQuery });
+      log.atInfo().log(`Table ${metricsSchema}.add_to_cart created or already exists`);
+    } catch (e: any) {
+      log.atError().withCause(e).log(`Failed to create ${metricsSchema}.add_to_cart table.`);
+      errors.push(new Error(`Failed to create ${metricsSchema}.add_to_cart table.`));
+    }
+
+    const createPurchasesTableQuery = `create table IF NOT EXISTS ${metricsSchema}.purchases ${onCluster}
+         (
+           event_time      DateTime,
+           session_id      String,
+           user_id         Nullable(String),
+           order_id        String,
+           product_id      String,
+           product_name    Nullable(String),
+           price           Float64,
+           quantity        UInt32,
+           total_amount    Float64,
+           payment_method  Nullable(String),
+           page_url        String,
+           referrer        Nullable(String),
+           additional_data Nullable(String)
+         )
+         engine = ${
+           metricsCluster
+             ? "ReplicatedMergeTree('/clickhouse/tables/{shard}/" + metricsSchema + "/purchases', '{replica}')"
+             : "MergeTree()"
+         }
+        PARTITION BY toYYYYMM(event_time)
+        ORDER BY (event_time, order_id, product_id)`;
+    try {
+      await clickhouse.command({ query: createPurchasesTableQuery });
+      log.atInfo().log(`Table ${metricsSchema}.purchases created or already exists`);
+    } catch (e: any) {
+      log.atError().withCause(e).log(`Failed to create ${metricsSchema}.purchases table.`);
+      errors.push(new Error(`Failed to create ${metricsSchema}.purchases table.`));
+    }
+
+    const createCustomEventsTableQuery = `create table IF NOT EXISTS ${metricsSchema}.custom_events ${onCluster}
+         (
+           event_time      DateTime,
+           session_id      String,
+           user_id         Nullable(String),
+           event_type      String,
+           event_name      String,
+           page_url        String,
+           referrer        Nullable(String),
+           event_data      Nullable(String),
+           additional_data Nullable(String)
+         )
+         engine = ${
+           metricsCluster
+             ? "ReplicatedMergeTree('/clickhouse/tables/{shard}/" + metricsSchema + "/custom_events', '{replica}')"
+             : "MergeTree()"
+         }
+        PARTITION BY toYYYYMM(event_time)
+        ORDER BY (event_time, event_type, session_id)`;
+    try {
+      await clickhouse.command({ query: createCustomEventsTableQuery });
+      log.atInfo().log(`Table ${metricsSchema}.custom_events created or already exists`);
+    } catch (e: any) {
+      log.atError().withCause(e).log(`Failed to create ${metricsSchema}.custom_events table.`);
+      errors.push(new Error(`Failed to create ${metricsSchema}.custom_events table.`));
+    }
     if (errors.length > 0) {
       throw new Error("Failed to initialize tables: " + errors.map(e => e.message).join(", "));
     }

@@ -152,7 +152,7 @@ export const BaseBulkerConnectionOptions = z
     timestampColumn: z.string().default("timestamp"),
     dataLayout: z
       .enum(["segment", "jitsu-legacy", "segment-single-table", "passthrough"])
-      .default("segment-single-table"),
+      .default("segment"),
     schemaFreeze: z.boolean().default(false),
     keepOriginalNames: z.boolean().default(false),
   })

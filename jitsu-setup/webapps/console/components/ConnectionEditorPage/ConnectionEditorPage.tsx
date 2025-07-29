@@ -57,19 +57,22 @@ const DataLayoutEditor: EditorComponent<DataLayoutType, { fileStorage?: boolean 
       <Radio value="segment-single-table">
         <div>
           <div className={``}>
-            Single Table{!props.fileStorage ? <span className="text-textDark font-bold"> (recommended)</span> : <></>}
+            Single Table
           </div>
           <div className={`max-w-2xl text-textLight text-sm`}>
             The data is written into a table <code>events</code>. Field names and naming convention are same as in
-            Segment
+            Segment. <strong>Note: Routing functions are ignored with this option.</strong>
           </div>
         </div>
       </Radio>
       <Radio value="segment">
         <div>
-          <div className={``}>Segment</div>
-          <div className={`text-textLight text-sm`}>
-            This data layout emulates segment tables: <code>pages</code>, <code>identify</code>, etc
+          <div className={``}>
+            Segment<span className="text-textDark font-bold"> (recommended for custom routing)</span>
+          </div>
+          <div className={`max-w-2xl text-textLight text-sm`}>
+            This data layout emulates segment tables: <code>pages</code>, <code>identify</code>, etc. 
+            <strong>Use this option to enable custom routing functions.</strong>
           </div>
         </div>
       </Radio>
@@ -397,7 +400,7 @@ function ConnectionEditor({
                 }
               }
             }}
-            value={connectionOptions.dataLayout || "segment-single-table"}
+            value={connectionOptions.dataLayout || "segment"}
           />
         </Tooltip>
       ),
