@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore - Premium Electronics & Gadgets</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Jitsu Analytics Integration -->
+    <script async src="http://localhost:8080/p.js" data-write-key="QenKIfVBZJQc4Qg0WeZmWCbEnJHlPDAx:UsUuswtbG4wRsAhGZU3Etu4nu9frfCb6"></script>
+    
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-purple-600">TechStore</h1>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="#" class="text-gray-900 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="#products" class="text-gray-500 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium">Products</a>
+                        <a href="#" class="text-gray-500 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium">Categories</a>
+                        <a href="#" class="text-gray-500 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="#api-testing" class="text-gray-500 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium">API Testing</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-500 hover:text-purple-600">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                    <button class="text-gray-500 hover:text-purple-600">
+                        <i class="fas fa-user text-xl"></i>
+                    </button>
+                    <button id="cart-btn" class="text-gray-500 hover:text-purple-600 relative">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-purple-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient pt-20 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                    Premium Electronics
+                    <span class="block">at Your Fingertips</span>
+                </h1>
+                <p class="text-xl text-purple-100 mb-8 max-w-3xl mx-auto">
+                    Discover the latest in technology with our curated collection of premium gadgets, smartphones, and accessories.
+                </p>
+                <button onclick="trackHeroClick()" class="bg-white text-purple-600 font-bold py-3 px-8 rounded-full hover:bg-purple-50 transition duration-300">
+                    Shop Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">Shop by Category</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center group cursor-pointer" onclick="trackCategoryClick('smartphones')">
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-full w-24 h-24 mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition duration-300">
+                        <i class="fas fa-mobile-alt text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900">Smartphones</h3>
+                    <p class="text-gray-600">Latest models and accessories</p>
+                </div>
+                <div class="text-center group cursor-pointer" onclick="trackCategoryClick('laptops')">
+                    <div class="bg-gradient-to-r from-green-500 to-blue-600 rounded-full w-24 h-24 mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition duration-300">
+                        <i class="fas fa-laptop text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900">Laptops</h3>
+                    <p class="text-gray-600">High-performance computing</p>
+                </div>
+                <div class="text-center group cursor-pointer" onclick="trackCategoryClick('accessories')">
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-600 rounded-full w-24 h-24 mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition duration-300">
+                        <i class="fas fa-headphones text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900">Accessories</h3>
+                    <p class="text-gray-600">Premium audio and more</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">Featured Products</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="products-grid">
+                <!-- Products will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- API Testing Section -->
+    <section id="api-testing" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">API Testing Dashboard</h2>
+            <p class="text-gray-600 text-center mb-8">Test backend APIs and track analytics events in real-time</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- API Testing Panel -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Backend API Tests</h3>
+                    
+                    <!-- Authentication API -->
+                    <div class="mb-6 p-4 bg-white rounded-lg border">
+                        <h4 class="font-semibold text-gray-900 mb-3">Authentication API</h4>
+                        <div class="space-y-3">
+                            <input type="email" id="login-email" placeholder="Email" class="w-full px-3 py-2 border rounded-lg">
+                            <input type="password" id="login-password" placeholder="Password" class="w-full px-3 py-2 border rounded-lg">
+                            <button onclick="testLoginAPI()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                                Test Login API
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Products API -->
+                    <div class="mb-6 p-4 bg-white rounded-lg border">
+                        <h4 class="font-semibold text-gray-900 mb-3">Products API</h4>
+                        <button onclick="testProductsAPI()" class="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300">
+                            Get Products
+                        </button>
+                    </div>
+
+                    <!-- Payment API -->
+                    <div class="mb-6 p-4 bg-white rounded-lg border">
+                        <h4 class="font-semibold text-gray-900 mb-3">Payment API</h4>
+                        <div class="space-y-3">
+                            <input type="number" id="payment-amount" placeholder="Amount" value="99.99" class="w-full px-3 py-2 border rounded-lg">
+                            <select id="payment-currency" class="w-full px-3 py-2 border rounded-lg">
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                                <option value="GBP">GBP</option>
+                            </select>
+                            <button onclick="testPaymentAPI()" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition duration-300">
+                                Test Payment API
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- System Performance API -->
+                    <div class="mb-6 p-4 bg-white rounded-lg border">
+                        <h4 class="font-semibold text-gray-900 mb-3">System Performance API</h4>
+                        <button onclick="testPerformanceAPI()" class="w-full bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 transition duration-300">
+                            Get System Performance
+                        </button>
+                    </div>
+
+                    <!-- Health Check API -->
+                    <div class="mb-6 p-4 bg-white rounded-lg border">
+                        <h4 class="font-semibold text-gray-900 mb-3">Health Check API</h4>
+                        <button onclick="testHealthAPI()" class="w-full bg-teal-600 text-white py-2 px-4 rounded-lg hover:bg-teal-700 transition duration-300">
+                            Health Check
+                        </button>
+                    </div>
+
+                    <!-- Simple Test API -->
+                    <div class="mb-6 p-4 bg-white rounded-lg border">
+                        <h4 class="font-semibold text-gray-900 mb-3">Simple Test API</h4>
+                        <button onclick="testSimpleAPI()" class="w-full bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 transition duration-300">
+                            Test Simple API
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">API Response & Analytics</h3>
+                    
+                    <!-- Response Display -->
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-900 mb-2">API Response</h4>
+                        <div id="api-response" class="bg-white p-4 rounded-lg border h-32 overflow-y-auto text-sm font-mono">
+                            <p class="text-gray-500">API responses will appear here...</p>
+                        </div>
+                    </div>
+
+                    <!-- Analytics Events -->
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-900 mb-2">Analytics Events</h4>
+                        <div id="analytics-events" class="bg-white p-4 rounded-lg border h-32 overflow-y-auto text-sm font-mono">
+                            <p class="text-gray-500">Analytics events will appear here...</p>
+                        </div>
+                    </div>
+
+                    <!-- Status Indicators -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white p-3 rounded-lg border text-center">
+                            <div class="text-sm text-gray-600">Backend Status</div>
+                            <div id="backend-status" class="text-lg font-semibold text-green-600">Online</div>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border text-center">
+                            <div class="text-sm text-gray-600">Jitsu Status</div>
+                            <div id="jitsu-status" class="text-lg font-semibold text-green-600">Connected</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Batch Testing -->
+            <div class="mt-8 bg-gray-50 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Batch API Testing</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button onclick="runBatchTest()" class="bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-300">
+                        Run All API Tests
+                    </button>
+                    <button onclick="clearResults()" class="bg-gray-600 text-white py-3 px-6 rounded-lg hover:bg-gray-700 transition duration-300">
+                        Clear Results
+                    </button>
+                    <button onclick="checkBackendStatus()" class="bg-yellow-600 text-white py-3 px-6 rounded-lg hover:bg-yellow-700 transition duration-300">
+                        Check Backend Status
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="bg-purple-600 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">Stay Updated</h2>
+            <p class="text-purple-100 mb-8">Get the latest deals and product updates delivered to your inbox.</p>
+            <div class="max-w-md mx-auto flex">
+                <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-l-lg focus:outline-none">
+                <button onclick="trackNewsletterSignup()" class="bg-white text-purple-600 px-6 py-3 rounded-r-lg font-semibold hover:bg-purple-50 transition duration-300">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">TechStore</h3>
+                    <p class="text-gray-400">Your trusted partner for premium electronics and technology.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Products</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Smartphones</a></li>
+                        <li><a href="#" class="hover:text-white">Laptops</a></li>
+                        <li><a href="#" class="hover:text-white">Accessories</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-white">Returns</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 TechStore. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="bg-white w-full max-w-md h-full ml-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold">Shopping Cart</h3>
+                    <button onclick="closeCart()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div id="cart-items" class="space-y-4 mb-6">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                <div class="border-t pt-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="font-bold">Total: $<span id="cart-total">0.00</span></span>
+                    </div>
+                    <button onclick="proceedToCheckout()" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition duration-300">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/analytics.js"></script>
+    
+    <!-- API Testing Scripts -->
+    <script>
+        const API_BASE_URL = 'http://localhost:3001';
+        
+        // Utility functions
+        function logResponse(response, type = 'API Response') {
+            const responseDiv = document.getElementById('api-response');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${type}:\n${JSON.stringify(response, null, 2)}\n\n`;
+            responseDiv.innerHTML += logEntry;
+            responseDiv.scrollTop = responseDiv.scrollHeight;
+        }
+        
+        function logAnalyticsEvent(event, type = 'Analytics Event') {
+            const eventsDiv = document.getElementById('analytics-events');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${type}:\n${JSON.stringify(event, null, 2)}\n\n`;
+            eventsDiv.innerHTML += logEntry;
+            eventsDiv.scrollTop = eventsDiv.scrollHeight;
+        }
+        
+        function updateStatus(elementId, status, color = 'green') {
+            const element = document.getElementById(elementId);
+            element.textContent = status;
+            element.className = `text-lg font-semibold text-${color}-600`;
+        }
+        
+        // API Testing Functions
+        async function testLoginAPI() {
+            const email = document.getElementById('login-email').value || 'test@example.com';
+            const password = document.getElementById('login-password').value || 'password123';
+            
+            console.log('🔐 Testing Login API...', { email, password });
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                console.log('📡 Login API Response Status:', response.status);
+                const data = await response.json();
+                logResponse(data, 'Login API Response');
+                
+                // Track analytics event
+                if (window.jitsu && typeof window.jitsu.track === 'function') {
+                    window.jitsu.track('API Test - Login', {
+                        api_endpoint: '/api/auth/login',
+                        success: data.success,
+                        response_time: Date.now(),
+                        timestamp: new Date().toISOString()
+                    });
+                    logAnalyticsEvent({ event: 'API Test - Login', success: data.success });
+                }
+                
+            } catch (error) {
+                console.error('❌ Login API Error:', error);
+                logResponse({ error: error.message, type: 'Network Error' }, 'Login API Error');
+                updateStatus('backend-status', 'Offline', 'red');
+            }
+        }
+        
+        async function testProductsAPI() {
+            console.log('📦 Testing Products API...');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/products`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                console.log('📡 Products API Response Status:', response.status);
+                const data = await response.json();
+                logResponse(data, 'Products API Response');
+                
+                // Track analytics event
+                if (window.jitsu && typeof window.jitsu.track === 'function') {
+                    window.jitsu.track('API Test - Products', {
+                        api_endpoint: '/api/products',
+                        success: data.success,
+                        products_count: data.products?.length || 0,
+                        timestamp: new Date().toISOString()
+                    });
+                    logAnalyticsEvent({ event: 'API Test - Products', products_count: data.products?.length });
+                }
+                
+            } catch (error) {
+                console.error('❌ Products API Error:', error);
+                logResponse({ error: error.message, type: 'Network Error' }, 'Products API Error');
+                updateStatus('backend-status', 'Offline', 'red');
+            }
+        }
+        
+        async function testPaymentAPI() {
+            const amount = document.getElementById('payment-amount').value || 99.99;
+            const currency = document.getElementById('payment-currency').value || 'USD';
+            
+            console.log('💳 Testing Payment API...', { amount, currency });
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/payment/process`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ amount: parseFloat(amount), currency })
+                });
+                
+                console.log('📡 Payment API Response Status:', response.status);
+                const data = await response.json();
+                logResponse(data, 'Payment API Response');
+                
+                // Track analytics event
+                if (window.jitsu && typeof window.jitsu.track === 'function') {
+                    window.jitsu.track('API Test - Payment', {
+                        api_endpoint: '/api/payment/process',
+                        success: data.success,
+                        amount: amount,
+                        currency: currency,
+                        transaction_id: data.transactionId,
+                        timestamp: new Date().toISOString()
+                    });
+                    logAnalyticsEvent({ event: 'API Test - Payment', amount, currency });
+                }
+                
+            } catch (error) {
+                console.error('❌ Payment API Error:', error);
+                logResponse({ error: error.message, type: 'Network Error' }, 'Payment API Error');
+                updateStatus('backend-status', 'Offline', 'red');
+            }
+        }
+        
+        async function testPerformanceAPI() {
+            console.log('⚡ Testing Performance API...');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/system/performance`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                console.log('📡 Performance API Response Status:', response.status);
+                const data = await response.json();
+                logResponse(data, 'Performance API Response');
+                
+                // Track analytics event
+                if (window.jitsu && typeof window.jitsu.track === 'function') {
+                    window.jitsu.track('API Test - Performance', {
+                        api_endpoint: '/api/system/performance',
+                        success: data.success,
+                        memory_usage: data.memory?.heapUsed,
+                        uptime: data.uptime,
+                        timestamp: new Date().toISOString()
+                    });
+                    logAnalyticsEvent({ event: 'API Test - Performance', uptime: data.uptime });
+                }
+                
+            } catch (error) {
+                console.error('❌ Performance API Error:', error);
+                logResponse({ error: error.message, type: 'Network Error' }, 'Performance API Error');
+                updateStatus('backend-status', 'Offline', 'red');
+            }
+        }
+        
+        async function testHealthAPI() {
+            console.log('🏥 Testing Health API...');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/health`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                console.log('📡 Health API Response Status:', response.status);
+                const data = await response.json();
+                logResponse(data, 'Health API Response');
+                
+                // Track analytics event
+                if (window.jitsu && typeof window.jitsu.track === 'function') {
+                    window.jitsu.track('API Test - Health', {
+                        api_endpoint: '/api/health',
+                        success: data.success,
+                        status: data.status,
+                        timestamp: new Date().toISOString()
+                    });
+                    logAnalyticsEvent({ event: 'API Test - Health', status: data.status });
+                }
+                
+            } catch (error) {
+                console.error('❌ Health API Error:', error);
+                logResponse({ error: error.message, type: 'Network Error' }, 'Health API Error');
+                updateStatus('backend-status', 'Offline', 'red');
+            }
+        }
+
+        async function testSimpleAPI() {
+            console.log('🔄 Testing Simple API...');
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/test`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                console.log('📡 Simple API Response Status:', response.status);
+                const data = await response.json();
+                logResponse(data, 'Simple API Response');
+
+                if (window.jitsu && typeof window.jitsu.track === 'function') {
+                    window.jitsu.track('API Test - Simple', {
+                        api_endpoint: '/api/test',
+                        success: data.success,
+                        message: data.message,
+                        timestamp: new Date().toISOString()
+                    });
+                    logAnalyticsEvent({ event: 'API Test - Simple', message: data.message });
+                }
+            } catch (error) {
+                console.error('❌ Simple API Error:', error);
+                logResponse({ error: error.message, type: 'Network Error' }, 'Simple API Error');
+                updateStatus('backend-status', 'Offline', 'red');
+            }
+        }
+        
+        async function runBatchTest() {
+            console.log('🚀 Starting Batch API Tests...');
+            logResponse({ message: 'Starting batch API tests...' }, 'Batch Test');
+            
+            // Run all tests with delays
+            await testHealthAPI();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            await testProductsAPI();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            await testPerformanceAPI();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            await testLoginAPI();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            await testPaymentAPI();
+            
+            console.log('✅ Batch API tests completed!');
+            logResponse({ message: 'Batch API tests completed!' }, 'Batch Test');
+        }
+        
+        function clearResults() {
+            document.getElementById('api-response').innerHTML = '<p class="text-gray-500">API responses will appear here...</p>';
+            document.getElementById('analytics-events').innerHTML = '<p class="text-gray-500">Analytics events will appear here...</p>';
+        }
+        
+        async function checkBackendStatus() {
+            console.log('🔍 Checking Backend Status...');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/health`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                console.log('📡 Backend Status Response:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        updateStatus('backend-status', 'Online', 'green');
+                        logResponse({ message: 'Backend is online and healthy', data }, 'Status Check');
+                    } else {
+                        updateStatus('backend-status', 'Error', 'red');
+                        logResponse({ message: 'Backend returned error status', data }, 'Status Check');
+                    }
+                } else {
+                    updateStatus('backend-status', 'Error', 'red');
+                    logResponse({ error: `Backend returned status ${response.status}` }, 'Status Check');
+                }
+            } catch (error) {
+                console.error('❌ Backend Status Check Error:', error);
+                updateStatus('backend-status', 'Offline', 'red');
+                logResponse({ error: 'Backend is offline or unreachable', details: error.message }, 'Status Check');
+            }
+        }
+        
+        // Check Jitsu status
+        function checkJitsuStatus() {
+            console.log('🔍 Checking Jitsu Status...');
+            
+            if (window.jitsu && typeof window.jitsu.track === 'function') {
+                updateStatus('jitsu-status', 'Connected', 'green');
+                logAnalyticsEvent({ message: 'Jitsu analytics is connected and ready' }, 'Jitsu Status');
+                console.log('✅ Jitsu is connected and ready');
+            } else {
+                updateStatus('jitsu-status', 'Disconnected', 'red');
+                logAnalyticsEvent({ message: 'Jitsu analytics is not connected' }, 'Jitsu Status');
+                console.log('❌ Jitsu is not connected');
+            }
+        }
+        
+        // Initialize API testing
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check statuses after page loads
+            setTimeout(() => {
+                checkBackendStatus();
+                checkJitsuStatus();
+            }, 1000);
+        });
+    </script>
+</body>
+</html> 
